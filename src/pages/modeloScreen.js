@@ -1,17 +1,19 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
-const PascoaScreen = ({navigation}) => {
+const ModeloScreen = ({navigation, route}) => {
   const handleImagePress = () => {
     navigation.navigate('Home');
   };
+
+  const { item } = route.params;
 
   return (
     <View style={styles.container}>
 
       <Image
-        source={require('../assets/pascoa.png')}
-        style={styles.imgPascoa}
+        source={{ uri: item["url da imagem"] }}
+        style={styles.imgModelo}
       />
 
       <TouchableOpacity onPress={handleImagePress}>
@@ -22,22 +24,22 @@ const PascoaScreen = ({navigation}) => {
       </TouchableOpacity>
 
       <View style={styles.conteudo}>
-        <Text style={styles.textoPascoa}>PASCOA 2024</Text>
+        <Text style={styles.textoModelo}>{item.nome}</Text>
 
-        <Text style={styles.textoDesc}>Venha curtir a Páscoa aqui com a família no Hotel Estância Barra Bonita, venha procurar os ovos que o Coelhinho deixou na nossa FLORESTA ENCANTADA e aproveitar muito com toda a família.</Text>
+        <Text style={styles.textoDesc}>{item.desc1}</Text>
 
         <View style={styles.fundoAzul}>
           <Image
-          source={require('../assets/floresta1.jpg')}
-          style={styles.imgFloresta1}
+          source={{ uri: item["img1"] }}
+          style={styles.imgModelo1}
           />
           <Image
-          source={require('../assets/floresta2.jpg')}
-          style={styles.imgFloresta2}
+          source={{ uri: item["img2"] }}
+          style={styles.imgModelo2}
           />
         </View>
 
-        <Text style={styles.textoDesc2}>Os chalés do Hotel Estância Barra Bonita estão localizados em alamedas arborizadas, formando vilas entre jardins e bosques. O Resort tem aproximadamente 2.000 árvores. A primeira coisa...</Text>
+        <Text style={styles.textoDesc2}>{item.desc2}</Text>
       </View>
 
     </View>
@@ -55,13 +57,13 @@ const styles = StyleSheet.create({
     marginTop: 50,
     backgroundColor: 'white',
   },
-  imgPascoa: {
+  imgModelo: {
     width: '100%',
     height: '30%',
     position: 'absolute',
     top: 50,
   },
-  textoPascoa: {
+  textoModelo: {
     fontSize: 30,
     textAlign: 'center',
   },
@@ -76,7 +78,7 @@ const styles = StyleSheet.create({
     left: 50,
     borderRadius: 100,
   },
-  imgFloresta1: {
+  imgModelo1: {
     width: '30%',
     height: 80,
     position: 'absolute',
@@ -85,7 +87,7 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     borderWidth: 3,
   },
-  imgFloresta2: {
+  imgModelo2: {
     width: '30%',
     height: 80,
     position: 'absolute',
@@ -109,4 +111,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default PascoaScreen;
+export default ModeloScreen;
