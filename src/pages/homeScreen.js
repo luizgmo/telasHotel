@@ -1,5 +1,42 @@
 import React from 'react';
-import { Text, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, View, Image, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
+
+const DATA = [
+  {
+    "id": 1,
+    "nome": "Páscoa",
+    "url da imagem": "https://www.fashionbubbles.com/wp-content/uploads/2022/04/domingo-pascoa.jpg"
+  },
+  {
+    "id": 2,
+    "nome": "Independência",
+    "url da imagem": "https://img2.migalhas.com.br/_MEDPROC_/https__img.migalhas.com.br__SL__gf_base__SL__empresas__SL__MIGA__SL__imagens__SL__2022__SL__07__SL__28__SL__cropped_kgjjhnyd.u01.jpg._PROC_CP75CCH31622400.jpg"
+  },
+  {
+    "id": 3,
+    "nome": "Dia das Mães",
+    "url da imagem": "https://www.fashionbubbles.com/wp-content/uploads/2023/03/dia-das-maes-origem-capa.jpg"
+  },
+  {
+    "id": 4,
+    "nome": "Natal",
+    "url da imagem": "https://super.abril.com.br/wp-content/uploads/2017/12/a-verdadeira-histc3b3ria-de-natal.png?w=720&h=440&crop=1"
+  },
+  {
+    "id": 5,
+    "nome": "Carnaval",
+    "url da imagem": "https://cdls.org.br/wp-content/uploads/cdlce_base/2024/01/Carnaval.png"
+  }
+];
+
+const Item = ({nome, imageUrl, onPress}) => (
+  <TouchableOpacity onPress={onPress}>
+    <View style={styles.item}>
+      <Image source={{uri: imageUrl}} style={styles.imagemFlat} />
+      <Text style={styles.nome}>{nome}</Text>
+    </View>
+  </TouchableOpacity>
+);
 
 const HomeScreen = ({ navigation }) => {
   const handleImagePress = () => {
@@ -19,18 +56,25 @@ const HomeScreen = ({ navigation }) => {
       <Text style={styles.pacotes}>PACOTES</Text>
 
       <View style={styles.fundoBranco}>
-        <TouchableOpacity onPress={handleImagePress}>
-          <Image
-            source={require('../assets/pascoa.png')}
-            style={styles.imgPascoa}
-          />
-        </TouchableOpacity>
-        <Text style={styles.textoPascoa}>PASCOA 2024</Text>
+        <FlatList
+          data={DATA}
+          renderItem={({item}) => (
+            <Item 
+              nome={item.nome}
+              imageUrl={item["url da imagem"]}
+              onPress={() => navigation.navigate('Pascoa')} />)}
+          keyExtractor={item => item.id}
+          horizontal={true}
+        />
       </View>
+
+
 
     </View>
   );
 };
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -63,11 +107,12 @@ const styles = StyleSheet.create({
   fundoBranco: {
     backgroundColor: 'white',
     width: '100%',
-    height: 150,
+    height: '25%',
     position: 'absolute',
     top: 280,
     left: 50,
-    borderRadius: 100,
+    borderRadius: 50,
+    elevation: 10,
   },
   imgPascoa: {
     width: 120,
@@ -79,6 +124,24 @@ const styles = StyleSheet.create({
   textoPascoa: {
     marginTop: 110,
     marginLeft: 50,
+  },
+  item: {
+    padding: 10,
+    width: 200,
+    height: '70%',
+    borderRadius: 10,
+    margin: 15,
+    top: 10,
+    alignItems: 'center',
+  },
+  nome: {
+    fontSize: 20,
+  },
+  imagemFlat: {
+    width: 150, 
+    height: 120,
+    resizeMode: 'cover',
+    borderRadius: 100,
   },
 });
 
